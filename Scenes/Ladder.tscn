@@ -37,7 +37,6 @@ shape = SubResource("RectangleShape2D_naict")
 one_shot = true
 
 [node name="ClimbPath" type="Path2D" parent="."]
-position = Vector2(-1, 0)
 curve = SubResource("Curve2D_b6mmi")
 
 [node name="ClimbFollow" type="PathFollow2D" parent="ClimbPath"]
@@ -45,7 +44,7 @@ position = Vector2(-4, 2)
 rotation = -1.5708
 
 [node name="ClimbPath2" type="Path2D" parent="."]
-position = Vector2(9, 0)
+position = Vector2(8, 0)
 curve = SubResource("Curve2D_b6mmi")
 
 [node name="ClimbFollow" type="PathFollow2D" parent="ClimbPath2"]
@@ -54,6 +53,7 @@ rotation = -1.5708
 
 [node name="Teller" type="Label" parent="."]
 visible = false
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -77,6 +77,9 @@ position = Vector2(0, -55)
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(-3, -55)
 rotation = 1.5708
+
+[node name="Marker2D3" type="Marker2D" parent="."]
+rotation = 3.14159
 
 [node name="Marker2D2" type="Marker2D" parent="."]
 position = Vector2(3, -55)

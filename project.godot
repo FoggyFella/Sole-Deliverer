@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*res://Scripts/Global.gd"
+CursorFollower="*res://Scenes/CursorFollower.tscn"
 
 [display]
 

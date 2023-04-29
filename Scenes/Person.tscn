@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://k4lesyv7evbh"]
+
+[ext_resource type="Texture2D" uid="uid://sebjx6mbahvx" path="res://Assets/jeremy.png" id="1_mtt4j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iuotl"]
+atlas = ExtResource("1_mtt4j")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckw4f"]
+atlas = ExtResource("1_mtt4j")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3a6a"]
+atlas = ExtResource("1_mtt4j")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ncjvn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iuotl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ckw4f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3a6a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Person" type="Node2D"]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -32)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ncjvn")
+frame = 2
+frame_progress = 0.341608

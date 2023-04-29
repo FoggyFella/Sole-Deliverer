@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://jtjyltcfnkbb"]
+
+[ext_resource type="Script" path="res://Scripts/LadderDestroyingArea.gd" id="1_ftxga"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4oesb"]
+
+[node name="LadderDestroyingArea" type="Area2D"]
+collision_mask = 6
+script = ExtResource("1_ftxga")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4oesb")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

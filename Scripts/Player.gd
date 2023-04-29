@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var world = $".."
+@onready var sprite = $Sprite
 
 var ladder = preload("res://Scenes/Ladder.tscn")
 var placing_ladder = null
@@ -21,9 +22,15 @@ func _physics_process(delta):
 		velocity.y += gravity
 	var move_dir = Input.get_axis("move_left","move_right")
 	if move_dir != 0 and !in_ladder_mode and !is_climbing_over:
+		$Sprite.play("walk")
+		if !$AnimationPlayer.is_playing():
+			$AnimationPlayer.play("walk_rotation")
 		rotate_sprite(move_dir)
 		velocity.x = lerp(velocity.x,move_dir * speed,0.2)
 	else:
+		$AnimationPlayer.stop()
+		if !is_climbing_over:
+			$Sprite.play("idle")
 		velocity.x = lerp(velocity.x,0.0,0.3)
 #	if Input.is_action_just_pressed("hop") and is_on_floor() and !in_ladder_mode:
 #		velocity.y += hop
@@ -55,7 +62,9 @@ func ladder_mode():
 	if Input.is_action_just_pressed("ladder_mode") and placed_ladder == null:
 		if !in_ladder_mode:
 			in_ladder_mode = true
+			world.show_controls()
 			world.show_up_message("LADDER MODE")
+			world.show_grid()
 			placing_ladder = ladder.instantiate()
 			placing_ladder.freeze = true
 			placing_ladder.modulate = Color("ffffff80")
@@ -66,6 +75,8 @@ func ladder_mode():
 			in_ladder_mode = false
 			placing_ladder.queue_free()
 			world.hide_up_message()
+			world.hide_grid()
+			world.hide_controls()
 	if in_ladder_mode:
 		var distance_to_ladder = global_position.distance_to(get_global_mouse_position())
 		placing_ladder.global_position.y = self.global_position.y
@@ -74,6 +85,8 @@ func ladder_mode():
 		if Input.is_action_just_pressed("left_click"):
 			in_ladder_mode = false
 			world.hide_up_message()
+			world.hide_controls()
+			world.hide_grid()
 			placing_ladder.freeze = false
 			placing_ladder.modulate = Color("ffffff")
 			placing_ladder.set_collision_mask_value(2,true)
@@ -88,13 +101,18 @@ func ladder_mode():
 			else:
 				placing_ladder.global_position.y += 3
 				placing_ladder.rotate(deg_to_rad(-90.0))
+	if Input.is_action_just_pressed("ladder_mode") and placed_ladder != null:
+		world.popup_down_message("YOU CAN HAVE ONLY ONE LADDER","ff0000")
 
 func climb_across():
 	if placed_ladder != null and placed_ladder.can_be_climbed:
+		$Sprite.play("climb")
+		$AnimationPlayer.stop()
 		is_climbing_over = true
 		placed_ladder.being_climbed = true
 		placed_ladder.teller.hide()
 		placed_ladder.reset_removal()
+		placed_ladder.check_stuff()
 		if placed_ladder.rotation_degrees < 0:
 			$Sprite.flip_h = true
 			placed_ladder.player_rotated = true
@@ -118,5 +136,6 @@ func climb_across():
 			await(tween.finished)
 			placed_ladder.has_climbed = false
 		is_climbing_over = false
+		$Sprite.play("walk")
 		placed_ladder.being_climbed = false
 		self.rotation = 0.0
