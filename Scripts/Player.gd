@@ -94,6 +94,7 @@ func ladder_mode():
 			placed_ladder = placing_ladder
 			placed_ladder.placed = true
 			placing_ladder = null
+			placed_ladder.activate_rays()
 		if Input.is_action_just_pressed("rotate"):
 			if placing_ladder.rotation_degrees == 0:
 				placing_ladder.global_position.y -= 3
@@ -106,7 +107,11 @@ func ladder_mode():
 
 func climb_across():
 	if placed_ladder != null and placed_ladder.can_be_climbed:
-		$Sprite.play("climb")
+		var rotation_without = abs(placed_ladder.rotation_degrees)
+		if rotation_without < 60.0:
+			$Sprite.play("climb")
+		else:
+			$Sprite.play("walk")
 		$AnimationPlayer.stop()
 		is_climbing_over = true
 		placed_ladder.being_climbed = true

@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://c7y2xh58x2jps"]
 
 [ext_resource type="Script" path="res://Scripts/CursorFollower.gd" id="1_x0vop"]
-[ext_resource type="FontFile" uid="uid://bxe1nf1jn6ggj" path="res://Assets/8bit_wonder/8-BIT WONDER.TTF" id="2_a5hs6"]
+[ext_resource type="FontFile" uid="uid://bbl3ysvoc6vd7" path="res://Assets/edit_undo/editundo.ttf" id="2_ncfmu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_i703y"]
-font = ExtResource("2_a5hs6")
-font_size = 8
+font = ExtResource("2_ncfmu")
+font_size = 10
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
@@ -14,7 +14,6 @@ z_index = 1
 script = ExtResource("1_x0vop")
 
 [node name="Label" type="Label" parent="."]
-visible = false
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -29,3 +28,4 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "RIGHT CLICK TO REMOVE"
 label_settings = SubResource("LabelSettings_i703y")
+vertical_alignment = 1

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dm3pr3a4pfkud"]
 
 [ext_resource type="Script" path="res://Scripts/Ladder.gd" id="1_71v7g"]
-[ext_resource type="Texture2D" uid="uid://dk8u0eyepb7b7" path="res://Assets/tile.png" id="1_igx2t"]
+[ext_resource type="Texture2D" uid="uid://dlse2hk08fqvt" path="res://Assets/white.png" id="2_cxq36"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1v3vs"]
 
@@ -25,9 +25,10 @@ physics_material_override = SubResource("PhysicsMaterial_1v3vs")
 script = ExtResource("1_71v7g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(0, -55)
 scale = Vector2(0.1875, 3.4375)
-texture = ExtResource("1_igx2t")
+texture = ExtResource("2_cxq36")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -55)
@@ -84,6 +85,26 @@ rotation = 3.14159
 [node name="Marker2D2" type="Marker2D" parent="."]
 position = Vector2(3, -55)
 rotation = -1.5708
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(1, -1)
+enabled = false
+target_position = Vector2(10, 0)
+
+[node name="RayCast2D2" type="RayCast2D" parent="."]
+position = Vector2(-1, -1)
+enabled = false
+target_position = Vector2(-10, 0)
+
+[node name="RayCast2D3" type="RayCast2D" parent="."]
+position = Vector2(1, -109)
+enabled = false
+target_position = Vector2(10, 0)
+
+[node name="RayCast2D4" type="RayCast2D" parent="."]
+position = Vector2(-1, -109)
+enabled = false
+target_position = Vector2(-10, 0)
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

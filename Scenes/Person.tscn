@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://k4lesyv7evbh"]
+[gd_scene load_steps=13 format=3 uid="uid://k4lesyv7evbh"]
 
+[ext_resource type="Script" path="res://Scripts/Person.gd" id="1_84j14"]
 [ext_resource type="Texture2D" uid="uid://sebjx6mbahvx" path="res://Assets/jeremy.png" id="1_mtt4j"]
+[ext_resource type="FontFile" uid="uid://bbl3ysvoc6vd7" path="res://Assets/edit_undo/editundo.ttf" id="3_7jujd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iuotl"]
 atlas = ExtResource("1_mtt4j")
@@ -31,12 +33,97 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m3wmv"]
+size = Vector2(77, 66)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dfea4"]
+font = ExtResource("3_7jujd")
+font_size = 15
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_4433y"]
+resource_name = "pulse"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1)]
+}
+
+[sub_resource type="Animation" id="Animation_1o40y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6riru"]
+_data = {
+"RESET": SubResource("Animation_1o40y"),
+"pulse": SubResource("Animation_4433y")
+}
+
 [node name="Person" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_84j14")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, -32)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ncjvn")
-frame = 2
-frame_progress = 0.341608
+autoplay = "default"
+frame_progress = 0.998003
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.5, -33)
+shape = SubResource("RectangleShape2D_m3wmv")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -79.5
+offset_right = 4.0
+offset_bottom = -62.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(4, 5)
+text = "E"
+label_settings = SubResource("LabelSettings_dfea4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "pulse"
+libraries = {
+"": SubResource("AnimationLibrary_6riru")
+}
+
+[node name="BoxPos" type="Marker2D" parent="."]
+position = Vector2(-37, 0)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqhwr3b134ts5"]
+
+[ext_resource type="Script" path="res://Scripts/Box.gd" id="1_axd5v"]
+[ext_resource type="Texture2D" uid="uid://bxf1ky01ixwqv" path="res://Assets/boxes.png" id="2_fnb2n"]
+
+[node name="Box" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_axd5v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -32)
+texture = ExtResource("2_fnb2n")
+hframes = 5

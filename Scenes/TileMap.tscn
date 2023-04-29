@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8i8nfablyog6"]
+[gd_scene load_steps=10 format=3 uid="uid://b8i8nfablyog6"]
 
 [ext_resource type="Texture2D" uid="uid://dk8u0eyepb7b7" path="res://Assets/tile.png" id="1_043sp"]
+[ext_resource type="Texture2D" uid="uid://b741osn2q60ps" path="res://Assets/tile-2.png" id="2_5h12g"]
+[ext_resource type="Texture2D" uid="uid://bq7qlsbyowag" path="res://Assets/tile-3.png" id="2_vvyhh"]
+[ext_resource type="Texture2D" uid="uid://d4cj17nbepmfk" path="res://Assets/spike.png" id="3_m3rsy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j3e42"]
+resource_name = "ground_snow"
 texture = ExtResource("1_043sp")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -10,12 +14,50 @@ texture_region_size = Vector2i(32, 32)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pslyo"]
+resource_name = "ground"
+texture = ExtResource("2_vvyhh")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c7o7m"]
+resource_name = "foreground"
+texture = ExtResource("2_5h12g")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/z_index = -1
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nj4bi"]
+texture = ExtResource("3_m3rsy")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/z_index = -1
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
 [sub_resource type="TileSet" id="TileSet_vqct0"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 5
 sources/0 = SubResource("TileSetAtlasSource_j3e42")
+sources/1 = SubResource("TileSetAtlasSource_pslyo")
+sources/2 = SubResource("TileSetAtlasSource_c7o7m")
+sources/3 = SubResource("TileSetAtlasSource_nj4bi")
 
 [node name="TileMap" type="TileMap"]
+texture_filter = 1
 tile_set = SubResource("TileSet_vqct0")
 format = 2
+layer_0/name = "0"
+layer_1/name = "-1"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = -1
+layer_1/tile_data = PackedInt32Array()

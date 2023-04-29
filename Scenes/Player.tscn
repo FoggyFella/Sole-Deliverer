@@ -1,11 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://cr35braamjmt2"]
+[gd_scene load_steps=13 format=3 uid="uid://cr35braamjmt2"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_in7at"]
 [ext_resource type="Texture2D" uid="uid://b5w0itk40frt7" path="res://Assets/player-sheet.png" id="2_ara45"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2d7uu"]
-atlas = ExtResource("2_ara45")
-region = Rect2(0, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hjuap"]
 atlas = ExtResource("2_ara45")
@@ -34,9 +30,6 @@ region = Rect2(32, 0, 32, 32)
 [sub_resource type="SpriteFrames" id="SpriteFrames_kift7"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2d7uu")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hjuap")
 }, {
@@ -104,13 +97,12 @@ floor_snap_length = 2.0
 script = ExtResource("1_in7at")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+process_mode = 3
 texture_filter = 1
 position = Vector2(0, -32)
-rotation = -0.0174533
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_kift7")
-animation = &"walk"
-frame_progress = 0.0902814
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -29)
@@ -125,6 +117,7 @@ position_smoothing_enabled = true
 editor_draw_limits = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
 libraries = {
 "": SubResource("AnimationLibrary_1wrsn")
 }

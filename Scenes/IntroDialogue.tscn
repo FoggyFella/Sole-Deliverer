@@ -1,0 +1,101 @@
+[gd_scene load_steps=9 format=3 uid="uid://cankr17angf8c"]
+
+[ext_resource type="Script" path="res://Scripts/IntroDialogue.gd" id="1_dl08c"]
+[ext_resource type="FontFile" uid="uid://bbl3ysvoc6vd7" path="res://Assets/edit_undo/editundo.ttf" id="2_qdp42"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x2nk8"]
+bg_color = Color(0, 0, 0, 0)
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gwbyb"]
+font = ExtResource("2_qdp42")
+font_size = 28
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_57vkc"]
+font = ExtResource("2_qdp42")
+font_size = 15
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_h6n5d"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_yq3jb"]
+resource_name = "Speaking"
+length = 0.3
+loop_mode = 1
+step = 0.15
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jx1vp"]
+_data = {
+"RESET": SubResource("Animation_h6n5d"),
+"Speaking": SubResource("Animation_yq3jb")
+}
+
+[node name="Dialogue" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_dl08c")
+
+[node name="Panel" type="Panel" parent="."]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -480.0
+offset_top = -50.0
+offset_right = 480.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(960, 100)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_x2nk8")
+
+[node name="Text" type="Label" parent="Panel"]
+process_mode = 3
+texture_filter = 1
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 860.0
+offset_bottom = 91.0
+text = "LALALALALALA"
+label_settings = SubResource("LabelSettings_gwbyb")
+autowrap_mode = 2
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Continue" type="Label" parent="Panel"]
+process_mode = 3
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -98.0
+offset_top = -50.0
+offset_right = -6.0
+offset_bottom = 49.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "ENTER
+
+OR
+
+SPACE
+"
+label_settings = SubResource("LabelSettings_57vkc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_jx1vp")
+}

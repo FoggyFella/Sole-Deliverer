@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfcojocxhuv53"]
+
+[ext_resource type="PackedScene" uid="uid://cankr17angf8c" path="res://Scenes/IntroDialogue.tscn" id="1_alu8w"]
+
+[sub_resource type="GDScript" id="GDScript_ys5i1"]
+resource_name = "Intro"
+script/source = "extends Control
+
+var text = [\"There is a village in the mountains.\",\"It's called Ongord.\",\"Nowadays the only people that come into it are the delivery men for the stores, so that people don't run out of food.\",\"But packages and mail still are still waiting in the post office to be delivered.\",\"Will you take the matter into your hands?\"]
+
+func _ready():
+	await(get_tree().create_timer(3.0).timeout)
+	$Dialogue.show_dialogue(text)
+	await($Dialogue.finished)
+"
+
+[node name="Intro" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_ys5i1")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Dialogue" parent="." instance=ExtResource("1_alu8w")]
