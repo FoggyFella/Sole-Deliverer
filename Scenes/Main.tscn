@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=3 uid="uid://but0nwdbqviyq"]
+
+[ext_resource type="Script" path="res://Scripts/World.gd" id="1_dcrxs"]
+[ext_resource type="PackedScene" uid="uid://b8i8nfablyog6" path="res://Scenes/TileMap.tscn" id="1_slqch"]
+[ext_resource type="PackedScene" uid="uid://cr35braamjmt2" path="res://Scenes/Player.tscn" id="2_c07fk"]
+[ext_resource type="FontFile" uid="uid://bxe1nf1jn6ggj" path="res://Assets/8bit_wonder/8-BIT WONDER.TTF" id="3_c5fds"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i310r"]
+font = ExtResource("3_c5fds")
+font_size = 20
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Environment" id="Environment_doqd7"]
+background_mode = 3
+glow_enabled = true
+glow_strength = 0.7
+glow_mix = 0.114
+glow_bloom = 0.48
+glow_blend_mode = 4
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_dcrxs")
+
+[node name="TileMap" parent="." instance=ExtResource("1_slqch")]
+layer_0/tile_data = PackedInt32Array(65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 65538, 0, 0, 65537, 0, 0, 65536, 0, 0, 131071, 0, 0, 131070, 0, 0, 131069, 0, 0, 131068, 0, 0, 131067, 0, 0, 131066, 0, 0, 65531, 0, 0, 65530, 0, 0, 65529, 0, 0, 131065, 0, 0, 196601, 0, 0, 196602, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 7, 0, 0, 65543, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 131086, 0, 0, 131087, 0, 0, 65551, 0, 0, 15, 0, 0, 14, 0, 0, 13, 0, 0, 12, 0, 0, 11, 0, 0, 10, 0, 0, 9, 0, 0, 8, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 65548, 0, 0, 65549, 0, 0, 65550, 0, 0, 131078, 0, 0, 65542, 0, 0, 6, 0, 0, -65523, 0, 0, -131059, 0, 0, -131058, 0, 0, -196594, 0, 0, -65522, 0, 0, -131057, 0, 0, -196593, 0, 0, -65521, 0, 0, -196595, 0, 0, -131080, 0, 0, -65544, 0, 0, -8, 0, 0, 65528, 0, 0, 131064, 0, 0, 196600, 0, 0, 196599, 0, 0, 131063, 0, 0, 65527, 0, 0, -9, 0, 0, -65545, 0, 0, -131081, 0, 0, -131082, 0, 0, -65546, 0, 0, -10, 0, 0, 65526, 0, 0, 131062, 0, 0, 196598, 0, 0, -196617, 0, 0, -196618, 0, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_c07fk")]
+position = Vector2(-87, -52)
+
+[node name="Bg" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Bg"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="UpMessage" type="Label" parent="UI"]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -80.0
+offset_top = 4.0
+offset_right = 80.0
+offset_bottom = 27.0
+grow_horizontal = 2
+text = "MESSAGE UP"
+label_settings = SubResource("LabelSettings_i310r")
+metadata/_edit_use_anchors_ = true
+
+[node name="DownMessage" type="Label" parent="UI"]
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -31.0
+offset_right = 20.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(0, 23)
+text = "DOWN MESSAGE"
+label_settings = SubResource("LabelSettings_i310r")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_doqd7")

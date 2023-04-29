@@ -1,0 +1,4 @@
+Code,sfx,music,art - FoggyDude
+
+Ludum Dairy font by Mike Kasprzak
+8 Bit Wonder font by Joiro Hatgaya

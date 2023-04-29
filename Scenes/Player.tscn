@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://cr35braamjmt2"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_in7at"]
+[ext_resource type="Texture2D" uid="uid://kqqtrjiq3qbd" path="res://Assets/player-wup.png" id="2_l5tmi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sjsc3"]
+size = Vector2(16, 58)
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 2
+collision_mask = 5
+floor_constant_speed = true
+floor_snap_length = 2.0
+script = ExtResource("1_in7at")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -32)
+scale = Vector2(2, 2)
+texture = ExtResource("2_l5tmi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -29)
+shape = SubResource("RectangleShape2D_sjsc3")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -29)
+zoom = Vector2(1.3, 1.3)
+position_smoothing_enabled = true
