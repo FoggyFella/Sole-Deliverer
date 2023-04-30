@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8i8nfablyog6"]
+[gd_scene load_steps=14 format=3 uid="uid://b8i8nfablyog6"]
 
 [ext_resource type="Texture2D" uid="uid://dk8u0eyepb7b7" path="res://Assets/tile.png" id="1_043sp"]
 [ext_resource type="Texture2D" uid="uid://b741osn2q60ps" path="res://Assets/tile-2.png" id="2_5h12g"]
 [ext_resource type="Texture2D" uid="uid://bq7qlsbyowag" path="res://Assets/tile-3.png" id="2_vvyhh"]
 [ext_resource type="Texture2D" uid="uid://d4cj17nbepmfk" path="res://Assets/spike.png" id="3_m3rsy"]
+[ext_resource type="Texture2D" uid="uid://dirdvmu00d6au" path="res://Assets/ice-1.png" id="5_s4yuu"]
+[ext_resource type="Texture2D" uid="uid://cqt2m742ssbc6" path="res://Assets/ice-2.png" id="6_2blvu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j3e42"]
 resource_name = "ground_snow"
@@ -40,6 +42,22 @@ texture_region_size = Vector2i(32, 32)
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i5s3r"]
+texture = ExtResource("5_s4yuu")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b708o"]
+texture = ExtResource("6_2blvu")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
 [sub_resource type="TileSet" id="TileSet_vqct0"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
@@ -48,6 +66,8 @@ sources/0 = SubResource("TileSetAtlasSource_j3e42")
 sources/1 = SubResource("TileSetAtlasSource_pslyo")
 sources/2 = SubResource("TileSetAtlasSource_c7o7m")
 sources/3 = SubResource("TileSetAtlasSource_nj4bi")
+sources/4 = SubResource("TileSetAtlasSource_i5s3r")
+sources/5 = SubResource("TileSetAtlasSource_b708o")
 
 [node name="TileMap" type="TileMap"]
 texture_filter = 1

@@ -7,7 +7,9 @@ signal finished
 var faces = [
 	preload("res://Assets/People/jeremy.png"),
 	preload("res://Assets/People/you.png"),
-	preload("res://Assets/People/will.png")
+	preload("res://Assets/People/will.png"),
+	preload("res://Assets/People/linda.png"),
+	preload("res://Assets/People/jimmy.png")
 ]
 
 func _ready():
@@ -49,3 +51,6 @@ func show_dialogue(text_array):
 func _process(delta):
 	if Input.is_action_just_pressed("dialogue") and $Panel/Continue.visible:
 		emit_signal("go_on")
+
+func turn_on_song():
+	$Song.play()

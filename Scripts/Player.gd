@@ -10,6 +10,8 @@ var placed_ladder = null
 var is_climbing_over = false
 var in_ladder_mode = false
 var gravity = 13.0
+@export var friction = 0.3
+@export var friction_2 = 0.2
 @export var speed = 85.0
 @export var inertia = 10.0
 @export var hop = -120
@@ -26,12 +28,12 @@ func _physics_process(delta):
 		if !$AnimationPlayer.is_playing():
 			$AnimationPlayer.play("walk_rotation")
 		rotate_sprite(move_dir)
-		velocity.x = lerp(velocity.x,move_dir * speed,0.2)
+		velocity.x = lerp(velocity.x,move_dir * speed,friction_2)
 	else:
 		$AnimationPlayer.stop()
 		if !is_climbing_over:
 			$Sprite.play("idle")
-		velocity.x = lerp(velocity.x,0.0,0.3)
+		velocity.x = lerp(velocity.x,0.0,friction)
 #	if Input.is_action_just_pressed("hop") and is_on_floor() and !in_ladder_mode:
 #		velocity.y += hop
 	move_and_slide()
@@ -40,11 +42,14 @@ func _physics_process(delta):
 		ladder_mode()
 	if Input.is_action_just_pressed("climb"):
 		climb_across()
+	if Input.is_action_just_pressed("reset"):
+		TransitionScene.reload_current_scene()
 	if is_climbing_over and placed_ladder != null:
 		self.global_position = placed_ladder.current_follow.global_position
 	if is_climbing_over and placed_ladder == null:
 		is_climbing_over = false
 		$Sprite.play("walk")
+		$climbsounds.stop()
 		self.rotation = 0.0
 
 func rotate_sprite(move_dir):
@@ -87,6 +92,7 @@ func ladder_mode():
 		if distance_to_ladder < 160.0:
 			placing_ladder.global_position.x = get_global_mouse_position().x
 		if Input.is_action_just_pressed("left_click"):
+			$place.play()
 			in_ladder_mode = false
 			world.hide_up_message()
 			world.hide_controls()
@@ -111,40 +117,56 @@ func ladder_mode():
 
 func climb_across():
 	if placed_ladder != null and placed_ladder.can_be_climbed:
+		#velocity.x = 0.0
 		var rotation_without = abs(placed_ladder.rotation_degrees)
 		if rotation_without < 60.0:
 			$Sprite.play("climb")
 		else:
 			$Sprite.play("walk")
+		$climbsounds.start()
 		$AnimationPlayer.stop()
 		is_climbing_over = true
-		placed_ladder.being_climbed = true
-		placed_ladder.teller.hide()
-		placed_ladder.reset_removal()
-		placed_ladder.check_stuff()
-		if placed_ladder.rotation_degrees < 0:
-			$Sprite.flip_h = true
-			placed_ladder.player_rotated = true
-			self.rotation = placed_ladder.ray_cast.global_rotation
-			placed_ladder.current_follow = placed_ladder.climb_follow_2
-		else:
-			$Sprite.flip_h = false
-			placed_ladder.player_rotated = false
-			self.rotation = placed_ladder.ray_cast_2.global_rotation
-			placed_ladder.current_follow = placed_ladder.climb_follow
-		if !placed_ladder.has_climbed:
-			var tween = create_tween()
-			tween.tween_property(placed_ladder.current_follow,"progress_ratio",1.0,2.1)
-			await(tween.finished)
-			placed_ladder.has_climbed = true
-		else:
-			placed_ladder.player_rotated = !placed_ladder.player_rotated
-			$Sprite.flip_h = placed_ladder.player_rotated
-			var tween = create_tween()
-			tween.tween_property(placed_ladder.current_follow,"progress_ratio",0.0,2.1)
-			await(tween.finished)
-			placed_ladder.has_climbed = false
+		if placed_ladder != null:
+			placed_ladder.being_climbed = true
+			placed_ladder.teller.hide()
+			placed_ladder.reset_removal()
+			placed_ladder.check_stuff()
+			if placed_ladder.rotation_degrees < 0:
+				$Sprite.flip_h = true
+				if placed_ladder != null:
+					placed_ladder.player_rotated = true
+					self.rotation = placed_ladder.ray_cast.global_rotation
+					placed_ladder.current_follow = placed_ladder.climb_follow_2
+			else:
+				$Sprite.flip_h = false
+				if placed_ladder != null:
+					placed_ladder.player_rotated = false
+					self.rotation = placed_ladder.ray_cast_2.global_rotation
+					placed_ladder.current_follow = placed_ladder.climb_follow
+			if !placed_ladder.has_climbed:
+				var tween = create_tween()
+				if placed_ladder != null:
+					tween.tween_property(placed_ladder.current_follow,"progress_ratio",1.0,placed_ladder.climbing_time)
+					await(tween.finished)
+					if placed_ladder != null:
+						placed_ladder.has_climbed = true
+			else:
+				if placed_ladder != null:
+					placed_ladder.player_rotated = !placed_ladder.player_rotated
+					$Sprite.flip_h = placed_ladder.player_rotated
+					var tween = create_tween()
+					tween.tween_property(placed_ladder.current_follow,"progress_ratio",0.0,placed_ladder.climbing_time)
+					await(tween.finished)
+					if placed_ladder != null:
+						placed_ladder.has_climbed = false
 		is_climbing_over = false
 		$Sprite.play("walk")
-		placed_ladder.being_climbed = false
+		$climbsounds.stop()
+		if placed_ladder != null:
+			placed_ladder.being_climbed = false
 		self.rotation = 0.0
+
+func _on_climbsounds_timeout():
+	randomize()
+	$climb.pitch_scale = randf_range(0.9,1.1)
+	$climb.play()

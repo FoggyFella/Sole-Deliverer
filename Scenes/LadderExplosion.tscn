@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://bgtqqlhxlknoc"]
+
+[ext_resource type="Texture2D" uid="uid://de767bb35oxfh" path="res://Assets/brown.png" id="1_gnf67"]
+[ext_resource type="Script" path="res://Scripts/LadderExplosion.gd" id="2_sjl3j"]
+[ext_resource type="AudioStream" uid="uid://briamgg2lnrdt" path="res://Assets/Sound/ladderexplosion.wav" id="3_cl2lt"]
+
+[sub_resource type="Gradient" id="Gradient_yiiav"]
+offsets = PackedFloat32Array(0, 0.503704, 0.903704)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jnoop"]
+gradient = SubResource("Gradient_yiiav")
+
+[sub_resource type="Curve" id="Curve_exvcw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0272727), -1.03481, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_832pw"]
+curve = SubResource("Curve_exvcw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_le3fx"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 45.1
+gravity = Vector3(100, 0, 0)
+initial_velocity_min = 73.68
+initial_velocity_max = 178.95
+angular_velocity_max = 591.16
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_min = -720.0
+angle_max = 720.0
+scale_min = 0.4
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_832pw")
+color_ramp = SubResource("GradientTexture1D_jnoop")
+
+[node name="LadderExplosion" type="GPUParticles2D"]
+modulate = Color(0.803922, 0.803922, 0.803922, 1)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_le3fx")
+texture = ExtResource("1_gnf67")
+one_shot = true
+explosiveness = 1.0
+script = ExtResource("2_sjl3j")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_cl2lt")
+volume_db = -5.0
+autoplay = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

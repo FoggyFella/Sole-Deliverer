@@ -1,14 +1,16 @@
 extends RigidBody2D
 
+var explosion = preload("res://Scenes/LadderExplosion.tscn")
+
 @onready var climb_follow = $ClimbPath/ClimbFollow
 @onready var climb_follow_2 = $ClimbPath2/ClimbFollow
-
 @onready var ray_cast = $Marker2D
 @onready var ray_cast_2 = $Marker2D2
-
 @onready var teller = $Teller
-
 @onready var world = get_tree().current_scene
+
+@export var should_stabilize = true
+@export var climbing_time = 2.1
 
 var countdown_on = false
 var message_vis = false
@@ -46,12 +48,10 @@ func _process(delta):
 	if Input.is_action_just_pressed("right_click") and can_remove:
 		CursorFollower.hide_tips()
 		world.hide_down_message()
+		spawn_effect()
 		Global.player.placed_ladder = null
 		self.queue_free()
 	var distance = $Center.global_position.distance_to(Global.player.global_position)
-	if distance > 150.0 and !Global.saw_deletion_tip and has_stabilized:
-		Global.saw_deletion_tip = true
-		world.popup_down_message("SOMETIMES YOU MIGHT HAVE TO COME BACK FOR YOUR LADDER","ffffff")
 	if has_stabilized:
 		if distance < 80.0 and !being_climbed:
 			if !message_vis:
@@ -75,9 +75,10 @@ func start_timer():
 
 func _on_timer_timeout():
 	if linear_velocity.is_zero_approx():
-		has_stabilized = true
-		freeze = true
-		print("i've stopped")
+		if should_stabilize:
+			has_stabilized = true
+			freeze = true
+			print("i've stopped")
 	else:
 		start_timer()
 
@@ -93,10 +94,11 @@ func check_stuff():
 
 func _physics_process(delta):
 	if $RayCast2D.is_colliding() and $RayCast2D3.is_colliding() or $RayCast2D2.is_colliding() and $RayCast2D4.is_colliding():
-		print("i've stopped")
-		linear_velocity = Vector2.ZERO
-		has_stabilized = true
-		freeze = true
+		if should_stabilize:
+			print("i've stopped")
+			linear_velocity = Vector2.ZERO
+			has_stabilized = true
+			freeze = true
 		$RayCast2D.enabled = false
 		$RayCast2D3.enabled = false
 		$RayCast2D2.enabled = false
@@ -115,5 +117,13 @@ func start_countdown():
 func _on_countdown_timeout():
 	CursorFollower.hide_tips()
 	world.hide_down_message()
+	spawn_effect()
 	Global.player.placed_ladder = null
 	self.queue_free()
+
+func spawn_effect():
+	var effect_inst = explosion.instantiate()
+	effect_inst.global_position = $Center.global_position
+	effect_inst.global_rotation = self.global_rotation
+	get_tree().current_scene.add_child(effect_inst)
+	effect_inst.emitting = true

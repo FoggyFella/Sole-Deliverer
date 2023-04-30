@@ -1,7 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://cr35braamjmt2"]
+[gd_scene load_steps=15 format=3 uid="uid://cr35braamjmt2"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_in7at"]
 [ext_resource type="Texture2D" uid="uid://b5w0itk40frt7" path="res://Assets/player-sheet.png" id="2_ara45"]
+[ext_resource type="AudioStream" uid="uid://4of7rtvb5frp" path="res://Assets/Sound/climb.wav" id="3_b6syy"]
+[ext_resource type="AudioStream" uid="uid://btyfsd47xjno3" path="res://Assets/Sound/ladderplce.wav" id="4_k5mwv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hjuap"]
 atlas = ExtResource("2_ara45")
@@ -63,8 +65,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sjsc3"]
-size = Vector2(16, 58)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jb51b"]
+radius = 11.0
+height = 58.0
 
 [sub_resource type="Animation" id="Animation_mdink"]
 resource_name = "walk_rotation"
@@ -106,10 +109,23 @@ animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -29)
-shape = SubResource("RectangleShape2D_sjsc3")
+shape = SubResource("CapsuleShape2D_jb51b")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 process_mode = 3
 libraries = {
 "": SubResource("AnimationLibrary_1wrsn")
 }
+
+[node name="climb" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_b6syy")
+volume_db = -3.0
+
+[node name="place" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_k5mwv")
+volume_db = -3.0
+
+[node name="climbsounds" type="Timer" parent="."]
+wait_time = 0.3
+
+[connection signal="timeout" from="climbsounds" to="." method="_on_climbsounds_timeout"]

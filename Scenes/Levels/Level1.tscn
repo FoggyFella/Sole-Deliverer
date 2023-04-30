@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bqba5e2c458js"]
+[gd_scene load_steps=22 format=3 uid="uid://bqba5e2c458js"]
 
 [ext_resource type="Script" path="res://Scripts/World.gd" id="1_kp0ls"]
 [ext_resource type="PackedScene" uid="uid://b8i8nfablyog6" path="res://Scenes/TileMap.tscn" id="1_ur01e"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://jtjyltcfnkbb" path="res://Scenes/LadderDestroyingArea.tscn" id="5_76rt7"]
 [ext_resource type="Texture2D" uid="uid://c63ajuhjkshk3" path="res://Assets/snow.png" id="6_apidj"]
 [ext_resource type="PackedScene" uid="uid://k4lesyv7evbh" path="res://Scenes/Person.tscn" id="8_3ev0h"]
+[ext_resource type="Texture2D" uid="uid://bf0101md7w5a8" path="res://Assets/house-1.png" id="9_8i3xx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vxgp0"]
 font = ExtResource("3_rpwmx")
@@ -235,7 +236,7 @@ visibility_rect = Rect2(-100, -100, 200, 300)
 [node name="LadderKillers" type="Node2D" parent="."]
 
 [node name="LadderDestroyingArea" parent="LadderKillers" instance=ExtResource("5_76rt7")]
-position = Vector2(126, 236)
+position = Vector2(-46, 209)
 
 [node name="CollisionShape2D" parent="LadderKillers/LadderDestroyingArea" index="0"]
 position = Vector2(-73.5, -4)
@@ -268,6 +269,14 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChangeLevel"]
 position = Vector2(18.5, 31.5)
 shape = SubResource("RectangleShape2D_msv7p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.372549)
+z_index = -1
+texture_filter = 1
+position = Vector2(230, -148)
+scale = Vector2(1.63281, 1.63281)
+texture = ExtResource("9_8i3xx")
 
 [connection signal="body_entered" from="ChangeLevel" to="." method="_on_change_level_body_entered"]
 

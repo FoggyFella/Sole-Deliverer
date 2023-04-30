@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=3 uid="uid://3e4r1q10nec3"]
+
+[ext_resource type="Texture2D" uid="uid://c8xqvr352fnjc" path="res://Assets/wheel.png" id="1_7wf1o"]
+[ext_resource type="Script" path="res://Scripts/Car.gd" id="1_l5l6a"]
+[ext_resource type="Texture2D" uid="uid://de767bb35oxfh" path="res://Assets/brown.png" id="2_0fvwb"]
+[ext_resource type="AudioStream" uid="uid://bu17y8goxeus5" path="res://Assets/Sound/cardrive.wav" id="4_y4318"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nm8o3"]
+radius = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kq4el"]
+size = Vector2(140, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d3xlf"]
+size = Vector2(3, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ix4nm"]
+size = Vector2(30, 24)
+
+[node name="Wheels" type="RigidBody2D"]
+script = ExtResource("1_l5l6a")
+
+[node name="Wheel1" type="PinJoint2D" parent="."]
+position = Vector2(-52, 18)
+node_a = NodePath("..")
+node_b = NodePath("RigidBody2D")
+metadata/_edit_group_ = true
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Wheel1" groups=["wheel"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="Wheel1/RigidBody2D"]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_7wf1o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel1/RigidBody2D"]
+shape = SubResource("CircleShape2D_nm8o3")
+
+[node name="Wheel2" type="PinJoint2D" parent="."]
+position = Vector2(52, 18)
+node_a = NodePath("..")
+node_b = NodePath("RigidBody2D")
+metadata/_edit_group_ = true
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Wheel2" groups=["wheel"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="Wheel2/RigidBody2D"]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_7wf1o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel2/RigidBody2D"]
+shape = SubResource("CircleShape2D_nm8o3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+position = Vector2(-7.62939e-06, 4)
+scale = Vector2(8.75, 1.5)
+texture = ExtResource("2_0fvwb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 15)
+shape = SubResource("RectangleShape2D_kq4el")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-68.5, 4)
+shape = SubResource("RectangleShape2D_d3xlf")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(68.396, 4)
+shape = SubResource("RectangleShape2D_d3xlf")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-6, 0)
+polygon = PackedVector2Array(-11, 14, 73, -7, 73, 14)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_ix4nm")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(70, 3)
+target_position = Vector2(5, 0)
+
+[node name="RayCast2D2" type="RayCast2D" parent="."]
+position = Vector2(-70, 3)
+target_position = Vector2(-5, 0)
+
+[node name="drive" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_y4318")
+pitch_scale = 0.86
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
