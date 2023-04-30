@@ -42,6 +42,21 @@ font_size = 15
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="Animation" id="Animation_1o40y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_4433y"]
 resource_name = "pulse"
 length = 0.8
@@ -57,21 +72,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.1, 1.1)]
-}
-
-[sub_resource type="Animation" id="Animation_1o40y"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6riru"]
@@ -91,6 +91,7 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ncjvn")
 autoplay = "default"
 frame_progress = 0.998003
+flip_h = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 2

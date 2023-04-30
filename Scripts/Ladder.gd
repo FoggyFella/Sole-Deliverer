@@ -10,6 +10,7 @@ extends RigidBody2D
 
 @onready var world = get_tree().current_scene
 
+var countdown_on = false
 var message_vis = false
 var has_climbed = false
 var player_rotated = false
@@ -64,6 +65,10 @@ func _process(delta):
 				message_vis = false
 				world.hide_down_message()
 			can_be_climbed = false
+	if countdown_on:
+		$TextureProgressBar.value = $Countdown.time_left
+	if has_stabilized and get_node_or_null("TextureProgressBar") != null and !countdown_on:
+		start_countdown()
 
 func start_timer():
 	$Timer.start()
@@ -102,3 +107,13 @@ func activate_rays():
 	$RayCast2D3.enabled = true
 	$RayCast2D2.enabled = true
 	$RayCast2D4.enabled = true
+
+func start_countdown():
+	$Countdown.start()
+	countdown_on = true
+
+func _on_countdown_timeout():
+	CursorFollower.hide_tips()
+	world.hide_down_message()
+	Global.player.placed_ladder = null
+	self.queue_free()

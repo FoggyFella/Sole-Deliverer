@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 Global="*res://Scripts/Global.gd"
 CursorFollower="*res://Scenes/CursorFollower.tscn"
 Dialogue="*res://Scenes/Dialogue.tscn"
+TransitionScene="*res://Scenes/TransitionScene.tscn"
 
 [display]
 

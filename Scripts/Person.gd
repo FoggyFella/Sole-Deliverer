@@ -24,6 +24,7 @@ func _process(delta):
 		await(Dialogue.finished)
 		if !has_delivered:
 			has_delivered = true
+			world.has_delivered = true
 			Global.has_delivered_before = true
 			spawn_box()
 
@@ -37,8 +38,6 @@ func _on_area_2d_body_exited(body):
 	if body.name == "Player":
 		can_speak = false
 		$Label.hide()
-		if !Global.has_delivered_before:
-			world.popup_down_message("MAKE SURE TO GIVE PEOPLE THEIR PACKAGES","ff0000")
 
 func spawn_box():
 	var box_inst = box.instantiate()

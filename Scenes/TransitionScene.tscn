@@ -1,0 +1,81 @@
+[gd_scene load_steps=2 format=3 uid="uid://btr4yy6tqhoa5"]
+
+[sub_resource type="GDScript" id="GDScript_0gctu"]
+script/source = "extends CanvasLayer
+
+@onready var color_rect = $\"%ColorRect\"
+@onready var color_rect_2 = %ColorRect2
+
+func _ready():
+	set_defaults()
+
+func reload_current_scene():
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	color_rect.visible = true
+	tween.tween_property(color_rect,\"scale\",Vector2(1,1),0.3)
+	tween.tween_interval(0.3)
+	await(tween.finished)
+	get_tree().reload_current_scene()
+	if get_tree().paused:
+		get_tree().paused = false
+	var tween2 = create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween2.set_trans(Tween.TRANS_CUBIC)
+	tween2.tween_property(color_rect,\"scale\",Vector2(1,0),0.3)
+	await(tween2.finished)
+	color_rect.visible = false
+
+func change_scene_to(path):
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	color_rect_2.visible = true
+	tween.tween_property(color_rect_2,\"scale\",Vector2(1,1),0.3)
+	tween.tween_interval(0.3)
+	await(tween.finished)
+	get_tree().change_scene_to_file(path)
+	if get_tree().paused:
+		get_tree().paused = false
+	var tween2 = create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween2.set_trans(Tween.TRANS_CUBIC)
+	tween2.tween_property(color_rect_2,\"scale\",Vector2(0,1),0.3)
+	await(tween2.finished)
+	color_rect_2.visible = false
+
+func set_defaults():
+	color_rect.visible = false
+	color_rect.scale = Vector2(1,0)
+	color_rect_2.visible = false
+	color_rect_2.scale = Vector2(0,1)
+"
+
+[node name="Transition" type="CanvasLayer"]
+layer = 3
+script = SubResource("GDScript_0gctu")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+pivot_offset = Vector2(576, 648)
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

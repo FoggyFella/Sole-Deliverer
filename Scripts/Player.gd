@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var world = $".."
 @onready var sprite = $Sprite
 
-var ladder = preload("res://Scenes/Ladder.tscn")
+@export var ladder = preload("res://Scenes/Ladder.tscn")
 var placing_ladder = null
 var placed_ladder = null
 
@@ -40,8 +40,12 @@ func _physics_process(delta):
 		ladder_mode()
 	if Input.is_action_just_pressed("climb"):
 		climb_across()
-	if is_climbing_over:
+	if is_climbing_over and placed_ladder != null:
 		self.global_position = placed_ladder.current_follow.global_position
+	if is_climbing_over and placed_ladder == null:
+		is_climbing_over = false
+		$Sprite.play("walk")
+		self.rotation = 0.0
 
 func rotate_sprite(move_dir):
 	if move_dir == -1:

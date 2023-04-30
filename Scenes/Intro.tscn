@@ -6,12 +6,13 @@
 resource_name = "Intro"
 script/source = "extends Control
 
-var text = [\"There is a village in the mountains.\",\"It's called Ongord.\",\"Nowadays the only people that come into it are the delivery men for the stores, so that people don't run out of food.\",\"But packages and mail still are still waiting in the post office to be delivered.\",\"Will you take the matter into your hands?\"]
+var text = [\"There is a village in the mountains.\",\"Nowadays the only people that come into it are the delivery men for the stores, so that people don't run out of food.\",\"But packages and mail in the post office are still waiting to be delivered.\",\"Will you take the matter into your hands?\"]
 
 func _ready():
 	await(get_tree().create_timer(3.0).timeout)
 	$Dialogue.show_dialogue(text)
 	await($Dialogue.finished)
+	TransitionScene.change_scene_to(\"res://Scenes/Levels/Level1.tscn\")
 "
 
 [node name="Intro" type="Control"]

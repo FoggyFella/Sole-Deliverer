@@ -5,4 +5,5 @@ func _on_body_entered(body):
 		body.queue_free()
 		Global.player.placed_ladder = null
 	elif body.name == "Player":
-		get_tree().reload_current_scene()
+		TransitionScene.reload_current_scene()
+		Global.show_level_thing = false

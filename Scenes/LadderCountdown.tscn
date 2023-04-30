@@ -1,0 +1,134 @@
+[gd_scene load_steps=9 format=3 uid="uid://byfhbr2cechk2"]
+
+[ext_resource type="Script" path="res://Scripts/Ladder.gd" id="1_j7m7a"]
+[ext_resource type="Texture2D" uid="uid://dlse2hk08fqvt" path="res://Assets/white.png" id="2_2jxtx"]
+[ext_resource type="Texture2D" uid="uid://ohid67nmmo04" path="res://Assets/count-over.png" id="3_6v06q"]
+[ext_resource type="Texture2D" uid="uid://7aqr8grl33yb" path="res://Assets/count-prog.png" id="4_e5f0f"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1v3vs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_naict"]
+size = Vector2(6, 110)
+
+[sub_resource type="Curve2D" id="Curve2D_b6mmi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -4, 2, 0, 0, 0, 0, -4, -113)
+}
+point_count = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_3omki"]
+font_size = 10
+
+[node name="Ladder" type="RigidBody2D" groups=["ladder"]]
+collision_layer = 4
+collision_mask = 3
+input_pickable = true
+physics_material_override = SubResource("PhysicsMaterial_1v3vs")
+script = ExtResource("1_j7m7a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -55)
+scale = Vector2(0.1875, 3.4375)
+texture = ExtResource("2_2jxtx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -55)
+shape = SubResource("RectangleShape2D_naict")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ClimbPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_b6mmi")
+
+[node name="ClimbFollow" type="PathFollow2D" parent="ClimbPath"]
+position = Vector2(-4, 2)
+rotation = -1.5708
+
+[node name="ClimbPath2" type="Path2D" parent="."]
+position = Vector2(8, 0)
+curve = SubResource("Curve2D_b6mmi")
+
+[node name="ClimbFollow" type="PathFollow2D" parent="ClimbPath2"]
+position = Vector2(-4, 2)
+rotation = -1.5708
+
+[node name="Teller" type="Label" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.5
+offset_top = -62.5
+offset_right = 33.5
+offset_bottom = -45.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5708
+pivot_offset = Vector2(42, 8)
+text = "Press \"e\" to climb"
+label_settings = SubResource("LabelSettings_3omki")
+vertical_alignment = 1
+
+[node name="Center" type="Marker2D" parent="."]
+position = Vector2(0, -55)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-3, -55)
+rotation = 1.5708
+
+[node name="Marker2D3" type="Marker2D" parent="."]
+rotation = 3.14159
+
+[node name="Marker2D2" type="Marker2D" parent="."]
+position = Vector2(3, -55)
+rotation = -1.5708
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(1, -1)
+enabled = false
+target_position = Vector2(10, 0)
+
+[node name="RayCast2D2" type="RayCast2D" parent="."]
+position = Vector2(-1, -1)
+enabled = false
+target_position = Vector2(-10, 0)
+
+[node name="RayCast2D3" type="RayCast2D" parent="."]
+position = Vector2(1, -109)
+enabled = false
+target_position = Vector2(10, 0)
+
+[node name="RayCast2D4" type="RayCast2D" parent="."]
+position = Vector2(-1, -109)
+enabled = false
+target_position = Vector2(-10, 0)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+texture_filter = 1
+offset_left = -34.0
+offset_top = -43.0
+offset_right = -9.0
+offset_bottom = -18.0
+rotation = -1.5708
+max_value = 3.0
+step = 0.1
+value = 3.0
+fill_mode = 5
+nine_patch_stretch = true
+texture_over = ExtResource("3_6v06q")
+texture_progress = ExtResource("4_e5f0f")
+tint_over = Color(0.0352941, 0.0352941, 0.0352941, 1)
+
+[node name="Countdown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Countdown" to="." method="_on_countdown_timeout"]
