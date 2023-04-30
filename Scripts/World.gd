@@ -11,7 +11,12 @@ extends Node2D
 
 var has_delivered = false
 
+var countdown_ladder = preload("res://Scenes/LadderCountdown.tscn")
+var normal_ladder = preload("res://Scenes/Ladder.tscn")
+var big_ladder = preload("res://Scenes/LadderBig.tscn")
+
 func _ready():
+	Global.timer_on = true
 	up_message.scale = Vector2(1,0)
 	down_message.scale = Vector2(1,0)
 	ladder_controls.scale = Vector2(0,1)
@@ -80,3 +85,26 @@ func _on_change_level_body_entered(body):
 			Global.show_level_thing = true
 		else:
 			popup_down_message("MAKE SURE TO GIVE PEOPLE THEIR PACKAGES","ff0000")
+
+
+func _on_area_2d_body_entered(body):
+	if body.name == "Player":
+		body.ladder = countdown_ladder
+
+func _on_area_2d_2_body_entered(body):
+	if body.name == "Player":
+		body.ladder = normal_ladder
+		body.friction = 0.005
+
+
+func _on_area_2d_3_body_entered(body):
+	if body.name == "Player":
+		body.friction = 0.3
+
+func _on_area_2d_4_body_entered(body):
+	if body.name == "Player":
+		body.ladder = big_ladder
+
+func _on_area_2d_5_body_entered(body):
+	if body.name == "Player":
+		body.ladder = countdown_ladder

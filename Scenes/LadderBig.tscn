@@ -6,7 +6,7 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1v3vs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_23e61"]
-size = Vector2(6, 302)
+size = Vector2(6, 906)
 
 [sub_resource type="Curve2D" id="Curve2D_3672h"]
 _data = {
@@ -29,21 +29,24 @@ collision_mask = 3
 input_pickable = true
 physics_material_override = SubResource("PhysicsMaterial_1v3vs")
 script = ExtResource("1_d1m5f")
+climbing_time = 6.0
+climb_distance = 157.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -151)
-scale = Vector2(0.1875, 9.4375)
+position = Vector2(0, -453)
+scale = Vector2(0.188, 28.314)
 texture = ExtResource("2_f8vik")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -151)
+position = Vector2(0, -453)
 shape = SubResource("RectangleShape2D_23e61")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
 [node name="ClimbPath" type="Path2D" parent="."]
+scale = Vector2(1, 3)
 curve = SubResource("Curve2D_3672h")
 
 [node name="ClimbFollow" type="PathFollow2D" parent="ClimbPath"]
@@ -52,6 +55,7 @@ rotation = -1.56749
 
 [node name="ClimbPath2" type="Path2D" parent="."]
 position = Vector2(7, 0)
+scale = Vector2(1, 3)
 curve = SubResource("Curve2D_prin5")
 
 [node name="ClimbFollow" type="PathFollow2D" parent="ClimbPath2"]

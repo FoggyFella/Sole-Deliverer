@@ -6,7 +6,7 @@
 resource_name = "Intro"
 script/source = "extends Control
 
-var text = [\"There is a village in the mountains.\",\"Nowadays the only people that come into it are the delivery men for the stores, so that people don't run out of food.\",\"But packages and mail in the post office are still waiting to be delivered.\",\"Will you take the matter into your hands?\"]
+var text = [\"There is a village in the mountains.\",\"Nowadays the only people that come into it are the delivery men for the stores, so that people don't run out of food.\",\"But packages and mail in the post office are still waiting to be delivered.\",\"You have decided to take the matter into your own hands.\",\"Now go...\"]
 
 func _ready():
 	await(get_tree().create_timer(3.0).timeout)

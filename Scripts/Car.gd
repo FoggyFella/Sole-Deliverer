@@ -2,7 +2,7 @@ extends RigidBody2D
 
 @onready var world = get_tree().current_scene
 
-var speed = 100
+@export var speed = 100
 var wheels = []
 var turned_on = false
 var can_turn_on = false

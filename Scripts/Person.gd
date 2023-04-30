@@ -4,6 +4,7 @@ extends Node2D
 
 @export var dialogue_string = '[["You","Hey, is this Mr.Jeremy?",1],["MR.Jeremy","Yup, are you the delivery guy they were talking about?",0],["You","Yeah, here is your package!",1]]'
 @export var should_spawn_box = true
+@export var the_final = true
 
 var box = preload("res://Scenes/Box.tscn")
 
@@ -25,7 +26,8 @@ func _process(delta):
 		await(Dialogue.finished)
 		if !has_delivered:
 			has_delivered = true
-			world.has_delivered = true
+			if the_final:
+				world.has_delivered = true
 			Global.has_delivered_before = true
 			if should_spawn_box:
 				spawn_box()

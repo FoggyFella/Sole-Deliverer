@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bjfnvh5tfiaey"]
+[gd_scene load_steps=11 format=3 uid="uid://bjfnvh5tfiaey"]
 
 [ext_resource type="FontFile" uid="uid://cab53vp0w3juc" path="res://Assets/font-ludum-dairy-0.2.0/Ludum-Dairy-0.2.0.ttf" id="1_7n4yy"]
+[ext_resource type="Script" path="res://Scripts/ld_intro.gd" id="1_t0upo"]
 [ext_resource type="FontFile" uid="uid://bbl3ysvoc6vd7" path="res://Assets/edit_undo/editundo.ttf" id="2_twoov"]
 [ext_resource type="Texture2D" uid="uid://dy07ad7myqmgp" path="res://Assets/logo.png" id="3_vccoq"]
 
@@ -20,7 +21,7 @@ glow_hdr_threshold = 0.28
 
 [sub_resource type="Animation" id="Animation_fab2o"]
 resource_name = "Intro"
-length = 10.0
+length = 8.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -76,7 +77,7 @@ tracks/4/path = NodePath("TextureRect:modulate")
 tracks/4/interp = 2
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 4.7, 4.8, 9.14978, 9.8),
+"times": PackedFloat32Array(0, 4.7, 4.8, 7.8, 8.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -88,7 +89,7 @@ tracks/5/path = NodePath("Label3:modulate")
 tracks/5/interp = 2
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 4.7, 4.8, 9.14978, 9.8),
+"times": PackedFloat32Array(0, 4.7, 4.8, 7.8, 8.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -100,7 +101,7 @@ tracks/6/path = NodePath("Label2:modulate")
 tracks/6/interp = 2
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 4.7, 4.8, 9.14978, 9.8),
+"times": PackedFloat32Array(0, 4.7, 4.8, 7.8, 8.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -285,6 +286,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_t0upo")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -401,3 +403,5 @@ scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(176, 176)
 texture = ExtResource("3_vccoq")
 expand_mode = 1
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

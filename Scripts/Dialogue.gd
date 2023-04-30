@@ -9,7 +9,8 @@ var faces = [
 	preload("res://Assets/People/you.png"),
 	preload("res://Assets/People/will.png"),
 	preload("res://Assets/People/linda.png"),
-	preload("res://Assets/People/jimmy.png")
+	preload("res://Assets/People/jimmy.png"),
+	preload("res://Assets/People/fella.png")
 ]
 
 func _ready():

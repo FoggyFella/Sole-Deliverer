@@ -12,6 +12,8 @@ var explosion = preload("res://Scenes/LadderExplosion.tscn")
 @export var should_stabilize = true
 @export var climbing_time = 2.1
 
+@export var climb_distance = 80.0
+
 var countdown_on = false
 var message_vis = false
 var has_climbed = false
@@ -53,7 +55,7 @@ func _process(delta):
 		self.queue_free()
 	var distance = $Center.global_position.distance_to(Global.player.global_position)
 	if has_stabilized:
-		if distance < 80.0 and !being_climbed:
+		if distance < climb_distance and !being_climbed:
 			if !message_vis:
 				message_vis = true
 				world.show_down_message("PRESS SPACE TO CLIMB","ffffff")

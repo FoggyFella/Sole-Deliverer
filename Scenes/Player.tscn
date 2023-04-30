@@ -119,11 +119,11 @@ libraries = {
 
 [node name="climb" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_b6syy")
-volume_db = -3.0
+volume_db = -15.0
 
 [node name="place" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_k5mwv")
-volume_db = -3.0
+volume_db = -8.0
 
 [node name="climbsounds" type="Timer" parent="."]
 wait_time = 0.3

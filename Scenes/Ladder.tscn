@@ -10,7 +10,7 @@ size = Vector2(6, 110)
 
 [sub_resource type="Curve2D" id="Curve2D_b6mmi"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -4, 2, 0, 0, 0, 0, -4, -113)
+"points": PackedVector2Array(0, 0, 0, 0, -4, 7, 0, 0, 0, 0, -4, -118)
 }
 point_count = 2
 
@@ -41,7 +41,7 @@ one_shot = true
 curve = SubResource("Curve2D_b6mmi")
 
 [node name="ClimbFollow" type="PathFollow2D" parent="ClimbPath"]
-position = Vector2(-4, 2)
+position = Vector2(-4, 7)
 rotation = -1.5708
 
 [node name="ClimbPath2" type="Path2D" parent="."]
@@ -49,7 +49,7 @@ position = Vector2(8, 0)
 curve = SubResource("Curve2D_b6mmi")
 
 [node name="ClimbFollow" type="PathFollow2D" parent="ClimbPath2"]
-position = Vector2(-4, 2)
+position = Vector2(-4, 7)
 rotation = -1.5708
 
 [node name="Teller" type="Label" parent="."]
